@@ -29,7 +29,6 @@ function createLogger (config) {
   // Create log directory if it doesnt exist
   if (! fs.existsSync(logDir)) fs.mkdirSync(logDir);
 
-  // Log to console and log file
   var log = bunyan.createLogger({
     name: appName
   , streams: [ 
@@ -42,10 +41,14 @@ function createLogger (config) {
       , level: logLevel
       , type: 'rotating-file'
       , period: '1d'
+      , count: 15
       }
     , { 
         path: logErrorFile
       , level: 'error'
+      , type: 'rotating-file'
+      , period: '1d'
+      , count: 15
       }
     ]
   , serializers: bunyan.stdSerializers
